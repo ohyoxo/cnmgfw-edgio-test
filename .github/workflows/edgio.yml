@@ -32,23 +32,25 @@ jobs:
             echo "SUCCESS=false" >> $GITHUB_ENV
           fi
       - name: Install dependencies
-        if: env.SUCCESS == 'false'
         run: |
-          # Check if package-lock.json file exists
-          if [ -f "package-lock.json" ]; then
-            # Use npm
-            npm i -g @edgio/cli@latest
-          else
-            # Check if yarn.lock file exists
-            if [ -f "yarn.lock" ]; then
-              # Use yarn
+            if [ "${{ steps.package.outputs.package_manager }}" = "npm" ]; then
+              npm i -g @edgio/cli@latest
+              if [ -f "package-lock.json" ]; then
+                npm ci --legacy-peer-deps
+              else
+                npm install --legacy-peer-deps
+              fi
+              echo "Using npm - Global packages"
+            elif [ "${{ steps.package.outputs.package_manager }}" = "yarn" ]; then
               yarn global add @edgio/cli@latest
-            else
-              # No lock file found
-              echo "No lock file found. Please run 'npm i' or 'yarn install' to install dependencies."
-              exit 1
+              if [ -f "yarn.lock" ]; then
+                yarn install --frozen-lockfile
+              else
+                yarn install
+              fi
+              echo "Using yarn - Global packages"
             fi
-          fi
+            echo ${{ steps.package.outputs.package_manager }}
       - name: Initialize Edgio
         if: env.SUCCESS == 'false'
         run: |
