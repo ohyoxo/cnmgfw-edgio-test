@@ -117,17 +117,14 @@ jobs:
       - name: Determine Package Manager
         id: package
         run: |
-          # Check if package-lock.json file exists
-          if [ -f "package-lock.json" ]; then
-            package_manager="npm"
-          # Check if yarn.lock file exists
-          elif [ -f "yarn.lock" ]; then
-            package_manager="yarn"
-          else
-            echo "No lock file found. Please run 'npm i' or 'yarn install' to install dependencies."
-            exit 1
-          fi
-          echo "package_manager=$package_manager" >> $GITHUB_OUTPUT
+            if [ -f "package-lock.json" ]; then
+              echo "package_manager=npm" >> $GITHUB_OUTPUT
+            elif [ -f "yarn.lock" ]; then
+              echo "package_manager=yarn" >> $GITHUB_OUTPUT
+            else
+              echo "No lock file found. Defaulting to npm."
+              echo "package_manager=npm" >> $GITHUB_OUTPUT
+            fi
       - name: Install dependencies
         run: |
           if [ ${{ steps.package.outputs.package_manager }} = "npm" ]; then
