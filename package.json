@@ -1,27 +1,18 @@
 {
-  "name": "nodejs-argo",
+  "name": "discord bot",
   "version": "8.8.8",
-  "description": "This is a node project",
+  "description": "my-discord-bot",
   "main": "index.js",
-  "author": "eooce",
-  "repository": "https://github.com/eooce/nodejs-argo",
+  "author": "yoyo",
+  "repository": "https://github.com/ohyoxo/my-discord-bot",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "node index.js",
-    "edgio:dev": "edgio dev",
-    "edgio:build": "edgio build",
-    "edgio:deploy": "edgio deploy"
+    "start": "node index.js"
   },
   "dependencies": {
     "axios": "latest",
-    "express": "^4.18.2",
-    "@edgio/core": "^7.0.0",
-    "@edgio/nodejs": "^7.0.0"
-  },
-  "devDependencies": {
-    "@edgio/cli": "^7.0.0",
-    "@edgio/devtools": "^7.0.0"
+    "express": "^4.18.2"
   },
   "engines": {
     "node": ">=14"
