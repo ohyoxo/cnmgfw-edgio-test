@@ -1,18 +1,26 @@
 {
-  "name": "discord bot",
+  "name": "node",
   "version": "8.8.8",
-  "description": "my-discord-bot",
+  "description": "This is a node project",
   "main": "index.js",
-  "author": "yoyo",
-  "repository": "https://github.com/ohyoxo/my-discord-bot",
+  "author": "eooce",
+  "repository": "",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "edgio:dev": "edgio dev",
+    "edgio:build": "edgio build",
+    "edgio:deploy": "edgio deploy"
   },
   "dependencies": {
     "axios": "latest",
-    "express": "^4.18.2"
+    "express": "latest"
+  },
+  "devDependencies": {
+    "@edgio/cli": "latest",
+    "@edgio/core": "latest",
+    "@edgio/express": "latest"
   },
   "engines": {
     "node": ">=14"
