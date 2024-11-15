@@ -1,6 +1,15 @@
-const { Router } = require('@edgio/core/router');
-const { connectorRoutes } = require('@edgio/connectors');
+// routes.js
+import { Router, edgioRoutes } from '@edgio/core'
 
-module.exports = new Router()
-  // This will send all requests to your Node.js app
-  .use(connectorRoutes);
+export default new Router()
+  // 静态文件路由
+  .match('/tmp/:path*', ({ cache, serveStatic }) => {
+    cache({
+      edge: {
+        maxAgeSeconds: 60 * 60 * 24, // 1天缓存
+      },
+    });
+    serveStatic('tmp/:path*');
+  })
+  // 所有其他请求都转发到Express应用
+  .use(edgioRoutes)
